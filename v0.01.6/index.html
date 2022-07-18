@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>	
+	<title>wolfray3d</title>
+</head>
+<body>
+	Размер Холста:<br/>
+	* Ширина: <input id="width" type="number"/><br/>
+	* Высота: <input id="height" type="number"/><br/>
+	<input id="generate" type="button" value="Сгенерировать Изображение"/><br/>
+	Пиксельный Шейдер:<br/>
+	<textarea cols="80" id="shader" rows="25">
+do(
+ set(wr_res_x, 128),
+ set(wr_res_y, 128),
+ set(wr_pos_x, 0),
+ set(wr_pos_y, 0),
+ 
+ define(main, proc(x, y, w, h,
+   do(
+    while (<(x, wr_res_x),
+	 do(
+	  while (<(y, wr_res_x),
+	   do(
+	    set(wr_color_r, *(255, /(x, w))),
+	    outfr(wr_pos_x, wr_pos_y, wr_color_r, wr_color_g, wr_color_b),
+	    define(y, +(y, 1))
+	   )
+	  ),
+	  
+	  define(x, +(x, 1))
+	 )
+	)
+   )
+  )
+ ),
+ 
+ main(wr_pos_x, wr_pos_y, wr_res_x, wr_res_y),
+)</textarea><br/>
+	<img id="renderer"/>
+</body>
+<script src="wolfray3d.js"></script>
+<script src="main.js"></script>
+</html>
